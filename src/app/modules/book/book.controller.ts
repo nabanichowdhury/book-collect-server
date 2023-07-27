@@ -77,12 +77,14 @@ const createBook: RequestHandler = catchAsync(
   const deleteBook:RequestHandler=catchAsync(
     async (req: Request, res: Response) => {
         const id=req.params.id
+        console.log("book id",JSON.stringify(id))
         const token=req.headers.authorization
         if(!token){
           throw new ApiError(httpStatus.UNAUTHORIZED,'Access token needed')
          }
         
         const result = await BookService.deleteBook(id,token);
+        
     
         sendResponse<IBook>(res, {
           statusCode: httpStatus.OK,

@@ -71,10 +71,97 @@ const createUser: RequestHandler = catchAsync(
       }
 
   )
+  const wishListBook:RequestHandler=catchAsync(
+    async (req: Request, res: Response) => {
+        const token=req.headers.authorization
+        if(!token){
+          throw new ApiError(httpStatus.UNAUTHORIZED,'Access Token Required')
+        }
+        const bookId=req.body
+        const result = await UserService.wishListBook(token,bookId);
+        sendResponse<IUser>(res, {
+          statusCode: httpStatus.OK,
+          success: true,
+          message: 'Book added to wishList successfully!',
+          data:result
+        });
+      })
+    const getWishListBook:RequestHandler=catchAsync(
+      async (req: Request, res: Response) => {
+          const token=req.headers.authorization
+          if(!token){
+            throw new ApiError(httpStatus.UNAUTHORIZED,'Access Token Required')
+          }
+          const result = await UserService.getWishListBook(token);
+          sendResponse<IUser>(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: 'WishList book retrieved!',
+            data:result
+          });
+        })
+    const getReadListBook:RequestHandler=catchAsync(
+      async (req: Request, res: Response) => {
+          const token=req.headers.authorization
+          if(!token){
+            throw new ApiError(httpStatus.UNAUTHORIZED,'Access Token Required')
+          }
+          const result = await UserService.getReadListBook(token);
+          sendResponse<IUser>(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: 'ReadList book retrieved!',
+            data:result
+          });
+        })
+    
+
+  const readListBook:RequestHandler=catchAsync(
+    async (req: Request, res: Response) => {
+        const token=req.headers.authorization
+        if(!token){
+
+          throw new ApiError(httpStatus.UNAUTHORIZED,'Access Token Required')
+        }
+        const bookId=req.body
+        const result = await UserService.readListBook(token,bookId);
+        sendResponse<IUser>(res, {
+          statusCode: httpStatus.OK,
+          success: true,
+          message: 'Book added to readList successfully!',
+          data:result
+        });
+      })
+  const markReadUnreadBook:RequestHandler=catchAsync(
+    async (req: Request, res: Response) => {
+        const token=req.headers.authorization
+        if(!token){
+
+          throw new ApiError(httpStatus.UNAUTHORIZED,'Access Token Required')
+        }
+        const bookId=req.body
+        const result = await UserService.markReadUnreadBook(token,bookId);
+        sendResponse<IUser>(res, {
+          statusCode: httpStatus.OK,
+          success: true,
+          message: 'Book is marked as read',
+          data:result
+        });
+      })
+ 
+
+
   
   export const UserController = {
     createUser,
     deleteUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    wishListBook,
+    getWishListBook,
+    readListBook,
+    getReadListBook,
+    markReadUnreadBook
+    
+   
   };

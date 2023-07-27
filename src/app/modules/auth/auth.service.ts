@@ -51,6 +51,7 @@ const loginUser = async (payload: ILogin): Promise<ILoginResponse> => {
   return {
     accessToken,
     refreshToken,
+    id:userId
     
   };
 };
@@ -77,7 +78,7 @@ const refreshToken = async (token:string):Promise<IRefreshTokenResponse> => {
 
   const newAccessToken=jwtHelper.createToken({userId},config.jwt.secret as Secret,config.jwt.expires_in as string)
 
-  return{ accessToken:newAccessToken}
+  return{ accessToken:newAccessToken,id:userId}
 
   
 

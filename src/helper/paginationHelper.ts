@@ -15,7 +15,7 @@ type IOptionResult = {
 
 const calculatePagination = (options: IPaginationOptions): IOptionResult => {
   const page = options.page || 1;
-  const limit = options.limit || 10;
+  const limit = options.limit || 100;
   const skip = (page - 1) * limit;
   const sortBy = options.sortBy || 'createdAt';
   const sortOrder = options.sortOrder || 'desc';

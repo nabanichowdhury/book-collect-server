@@ -8,6 +8,9 @@ const userSchema = new Schema<IUser, UserModel>(
     email: { type: String, required: true },
     password: { type: String, required: true },
     books: [{ type: Schema.Types.ObjectId, ref: 'Book',optional:true }],
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'Book',optional:true,unique:true }],
+    readList: [{ bookId:{ type: Schema.Types.ObjectId, ref: 'Book',optional:true,unique:true },hasRead:{type:Boolean,default:false} }],
+    
   },
   {
     timestamps: true,

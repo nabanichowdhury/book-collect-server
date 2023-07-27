@@ -101,7 +101,9 @@ const updateBook = async (
 };
 const deleteBook = async (id: string,token:string): Promise<IBook | null> => {
 
-  const isExist = await Book.findById(id);
+  // console.log("book id",JSON.stringify(id))
+  
+  const isExist = await Book.findById({_id:id});
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, "Book Not Found !");
   }
@@ -112,6 +114,7 @@ const deleteBook = async (id: string,token:string): Promise<IBook | null> => {
     throw new ApiError(httpStatus.UNAUTHORIZED,'Invalid seller')
   }
   const result = await Book.findOneAndDelete({_id:id,owner:userId});
+  await User.findByIdAndUpdate(userId, { $pull: { books: result?._id } }, { new: true })
   return result;
 };
 export const BookService = {

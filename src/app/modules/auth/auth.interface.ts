@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose"
 
 export type ILogin={
     email:string,
@@ -6,10 +7,12 @@ export type ILogin={
 export type ILoginResponse={
     accessToken:string,
     refreshToken:string
+    id:ObjectId
 }
 
 export type IRefreshTokenResponse={
     accessToken:string
+    id:ObjectId
 }
 
 
