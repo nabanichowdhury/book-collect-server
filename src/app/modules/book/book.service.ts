@@ -27,7 +27,7 @@ const createBook = async (book: IBook,token:string): Promise<IBook |null> => {
   ): Promise<IGenericResponse<IBook[]>> => {
     const { searchTerm, ...filteredData } = filters;
   
-  
+    
  
     const andConditions = [];
     if (searchTerm) {
@@ -43,13 +43,19 @@ const createBook = async (book: IBook,token:string): Promise<IBook |null> => {
   
     if (Object.keys(filteredData).length) {
       andConditions.push({
-        $and: Object.entries(filteredData).map(([field, value]) => ({
+        $and: Object.entries(filteredData).map(([field, value]) => (
+          console.log(field,value),
+          {
+          
           [field]: value,
+
         })),
       });
     }
+   
+   
     const whereCondition = andConditions.length > 0 ? { $and: andConditions } : {};
-  
+    
     const { page, limit, skip, sortBy, sortOrder } =
       paginationHelper.calculatePagination(paginationOptions);
   
