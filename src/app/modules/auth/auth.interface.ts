@@ -6,12 +6,13 @@ export type ILogin={
 }
 export type ILoginResponse={
     accessToken:string,
-    refreshToken:string
+    refreshToken:string,
     id:ObjectId
 }
 
 export type IRefreshTokenResponse={
-    accessToken:string
+    accessToken:string,
+    
     id:ObjectId
 }
 
