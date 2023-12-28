@@ -16,8 +16,10 @@ const createBook = async (book: IBook,token:string): Promise<IBook |null> => {
     const verifyOwner=jwtHelper.verifyToken(token,config.jwt.secret as Secret)
     const {userId}=verifyOwner
     book.owner=userId
+  
     const result = await Book.create(book);
     await User.findByIdAndUpdate(userId, { $push: { books: result._id } }, { new: true })
+    console.log(result)
     return result;  
   };
 

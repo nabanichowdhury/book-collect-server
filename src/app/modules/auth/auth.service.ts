@@ -5,7 +5,7 @@ import { Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelper } from '../../../helper/jwtHelper';
-import { Admin } from '../admin/admin.model';
+
 import { User } from '../user/user.model';
 import { ILogin, ILoginResponse, IRefreshTokenResponse } from './auth.interface';
 
@@ -26,7 +26,7 @@ const loginUser = async (payload: ILogin): Promise<ILoginResponse> => {
 
   if (
     isUserExist.password &&
-    !((await User.isPasswordMatched(password, isUserExist.password) || !(await Admin.isPasswordMatched(password, isUserExist.password))))
+    !((await User.isPasswordMatched(password, isUserExist.password)  ))
   ) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
   }

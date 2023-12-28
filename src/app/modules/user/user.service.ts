@@ -93,7 +93,7 @@ const markReadUnreadBook=async (token: string,payload:IWishList):Promise<IUser|n
      }
  
      // Find the bookIndex in the readList array
-     const bookIndex = user.readList.findIndex((item) => item.bookId==(payload.bookId));
+     const bookIndex = user?.readList?.findIndex((item) => item.bookId==(payload.bookId));
      if (bookIndex === -1) {
        throw new Error('Book not found in readList');
      }

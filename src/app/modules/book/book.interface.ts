@@ -9,6 +9,7 @@ export type IBook= {
     genre: string;
     publicationYear: string;
     owner:ObjectId;
+    
     reviews: string[];
 
   }
